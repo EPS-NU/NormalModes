@@ -329,7 +329,6 @@ int main(int argc, char** argv){
       strcat(sf10,".Mrrtt.2");
 
 
-      printf("sf1: %s\n",sf1);
 
       /* !! seg fault if sf1/sf2 doesn't exist !! */
 
@@ -344,12 +343,10 @@ int main(int argc, char** argv){
       read_stick_file(sf9,&nsing9,&w9,&z9);
       read_stick_file(sf10,&nsing10,&w10,&z10);
 
-      printf("nsing1 = %d \n",nsing1);
       /* read the sac binary file for the current station */
       strcat(sac_fname,"12102.");
       strcat(sac_fname,params.sta[i]);
 
-      printf("sac_fname: %s\n",sac_fname);
 
       /* initialize tmp to 0 to kill off crap from last read */
       for(j = 0; j < SAC_DATA_MAX; j++) tmp[j] = 0.0;
@@ -396,7 +393,6 @@ int main(int argc, char** argv){
 
       /* find j for which wlo is closest to a frequency in fft_data */
 
-      printf("wlo = %le\ndw = %le\n", wlo/(2.0*M_PI), dw);
       start = 0;
       for(j = 1; j < newlen; j++){
         diff = fabs(wlo - j*dw);
@@ -419,7 +415,6 @@ int main(int argc, char** argv){
 
 //      printf("end = %d\n whi = %le, wlo = %le\n", end, whi/(2.0*M_PI), wlo/(2.0*M_PI));
 
-      printf("writing fft of data to disk\n");
       FILE* fp2 = fopen("data.dat","w");
       for(j = start; j <= end ; j++){
         fprintf(fp2,"%0.8lE %0.8lE\n",j*(1.0)/(delta*newlen),cabs(fft_data[j]));
@@ -725,43 +720,43 @@ int main(int argc, char** argv){
     /* re-read everything to be able to print the forward problem using the results found */
 
     strcat(sf1,"0s4/0s4.");
-    strcat(sf1,params.sta[0]);
+    strcat(sf1,params.sta[params.nsta-1]);
     strcat(sf1,".Mrt.1");
 
     strcat(sf2,"0s4/0s4.");
-    strcat(sf2,params.sta[0]);
+    strcat(sf2,params.sta[params.nsta-1]);
     strcat(sf2,".Mrp.1");
 
     strcat(sf3,"0s4/0s4.");
-    strcat(sf3,params.sta[0]);
+    strcat(sf3,params.sta[params.nsta-1]);
     strcat(sf3,".Mtp.1");
 
     strcat(sf4,"0s4/0s4.");
-    strcat(sf4,params.sta[0]);
+    strcat(sf4,params.sta[params.nsta-1]);
     strcat(sf4,".Mrrpp.1");
 
     strcat(sf5,"0s4/0s4.");
-    strcat(sf5,params.sta[0]);
+    strcat(sf5,params.sta[params.nsta-1]);
     strcat(sf5,".Mrrtt.1");
 
     strcat(sf6,"0s4/0s4.");
-    strcat(sf6,params.sta[0]);
+    strcat(sf6,params.sta[params.nsta-1]);
     strcat(sf6,".Mrt.2");
 
     strcat(sf7,"0s4/0s4.");
-    strcat(sf7,params.sta[0]);
+    strcat(sf7,params.sta[params.nsta-1]);
     strcat(sf7,".Mrp.2");
 
     strcat(sf8,"0s4/0s4.");
-    strcat(sf8,params.sta[0]);
+    strcat(sf8,params.sta[params.nsta-1]);
     strcat(sf8,".Mtp.2");
 
     strcat(sf9,"0s4/0s4.");
-    strcat(sf9,params.sta[0]);
+    strcat(sf9,params.sta[params.nsta-1]);
     strcat(sf9,".Mrrpp.2");
 
     strcat(sf10,"0s4/0s4.");
-    strcat(sf10,params.sta[0]);
+    strcat(sf10,params.sta[params.nsta-1]);
     strcat(sf10,".Mrrtt.2");
 
     printf("%s\n",sf3);
