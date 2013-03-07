@@ -174,7 +174,7 @@ int main(int argc, char** argv){
   wlo = (2.0*M_PI)/Thi;
   whi = (2.0*M_PI)/Tlo;
 
-  complex* x = NULL;
+  double complex* x = NULL;
 
 
   /* moment tensor components */
@@ -198,23 +198,23 @@ int main(int argc, char** argv){
    double mrp2 = -0.20944;
    */
 
-  double mrr1 = 1;
-  double mrr2 = 1;
+  double complex mrr1 = 1;
+  double complex mrr2 = 1;
 
-  double mtt1 = 1;
-  double mtt2 = 1;
+  double complex mtt1 = 1;
+  double complex mtt2 = 1;
 
-  double mpp1 = 1;
-  double mpp2 = 1;
+  double complex mpp1 = 1;
+  double complex mpp2 = 1;
 
-  double mtp1 = 1;
-  double mtp2 = 1;
+  double complex mtp1 = 1;
+  double complex mtp2 = 1;
 
-  double mrt1 = 1;
-  double mrt2 = 1;
+  double complex mrt1 = 1;
+  double complex mrt2 = 1;
 
-  double mrp1 = 1;
-  double mrp2 = 1;
+  double complex mrp1 = 1;
+  double complex mrp2 = 1;
 
 
   /* sac lib vars */
@@ -452,7 +452,7 @@ int main(int argc, char** argv){
 //      printf("Filling block\n");
       /* begin filling block */
 
-      Nxdt = newlen*delta;
+      Nxdt = len*delta;
 
       FILE* agmatrix = fopen("agmatrix.dat","w");
       omega = wlo;
@@ -699,22 +699,22 @@ int main(int argc, char** argv){
     mtp2 = dmajor[7];
 
     printf("Event 1:\n");
-    printf(" Mrr = %le, Mtt = %le, Mpp = %le\n Mrt = %le, Mrp = %le, Mtp = %le\n",
-           -(creal(dmajor[3])+creal(dmajor[4])),
-           creal(dmajor[4]),
-           creal(dmajor[3]),
-           creal(dmajor[0]),
-           creal(dmajor[1]),
-           creal(dmajor[2]));
+    printf(" Mrr = (%le %le) , Mtt = (%le %le), Mpp = (%le %le)\n Mrt = (%le %le), Mrp = (%le %le), Mtp = (%le %le)\n",
+           -(creal(dmajor[3]+dmajor[4])), cimag(mrr1),
+           creal(dmajor[4]), cimag(mtt1),
+           creal(dmajor[3]), cimag(mpp1),
+           creal(dmajor[0]), cimag(mrt1),
+           creal(dmajor[1]), cimag(mrp1),
+           creal(dmajor[2]), cimag(mtp1));
 
     printf("Event 2:\n");
-    printf(" Mrr = %le, Mtt = %le, Mpp = %le\n Mrt = %le, Mrp = %le, Mtp = %le\n",
-           -(creal(dmajor[8])+creal(dmajor[9])),
-           creal(dmajor[9]),
-           creal(dmajor[8]),
-           creal(dmajor[5]),
-           creal(dmajor[6]),
-           creal(dmajor[7]));
+    printf(" Mrr = (%le %le), Mtt = (%le %le), Mpp = (%le %le)\n Mrt = (%le %le), Mrp = (%le %le), Mtp = (%le %le)\n",
+           -(creal(dmajor[8]+dmajor[9])), cimag(mrr2),
+           creal(dmajor[9]), cimag(mtt2),
+           creal(dmajor[8]), cimag(mpp2),
+           creal(dmajor[5]), cimag(mrt2),
+           creal(dmajor[6]), cimag(mrp2),
+           creal(dmajor[7]), cimag(mtp2));
 
 
     /* re-read everything to be able to print the forward problem using the results found */
@@ -776,7 +776,7 @@ int main(int argc, char** argv){
 
     printf("sticks read\n");
 
-    if( (x = (complex*) calloc(m , sizeof(complex))) == NULL){
+    if( (x = (double complex*) calloc(m , sizeof(double complex))) == NULL){
       printf("Unable to allocate memory for x\n");
       exit(EXIT_FAILURE);
     }
